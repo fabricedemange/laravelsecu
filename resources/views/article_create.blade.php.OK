@@ -1,0 +1,67 @@
+@extends('layouts.partials.mainlayout')
+
+@section('header2')
+
+@if (session()->has('message'))
+{{ session('message') }}
+@endif
+@endsection
+
+@section('content')
+
+
+
+
+
+<h2>création d'un article</h2>
+
+
+<section class="clean-block clean-info dark">
+    <div class="container d-lg-flex justify-content-lg-center align-items-lg-end flex-wrap" style="width: 670;">
+        <form class="text-left" style="text-align: left;" action="{{ route('articles.update', $article->id) }}" method="post">
+            @csrf
+            @method('put')
+            <h2 class="text-info" style="text-align: left;width: 650px;">Titre
+                <input class="form-control" type="text" name="title" value="{{old('title', $article->title)}}" placeholder="title" style="height: 40px;width: 650;"></h2>
+
+            <h2 class="text-info" style="text-align: left;width: 650px;">Contenu
+                <textarea class="form-control" type="text" name="content" placeholder="content" style="height: 77px;width: 650;">{{old('content', $article->content)}}</textarea></h2>
+            <x-jet-button class="ml-4">
+                Envoyer
+            </x-jet-button>
+        </form>
+    </div>
+</section>
+
+</section>
+<section class="clean-block clean-info dark">
+    <div class="container">
+        <div class="block-heading">
+            <x-jet-validation-errors class="mb-3" />
+            <form method="POST" action="{{ route('articles.store') }}">
+                @csrf
+
+                <div class="mt-4">
+                    <x-jet-label value="Titre" />
+                    <x-jet-input class="block mt-1 w-full" type="text" id=title name="title" :value="old('title')" placeholder="Titre article" required autofocus />
+                </div>
+
+                <div class="mt-4">
+                    <x-jet-label value="Détail" />
+                    <textarea class="form-input rounded-md shadow-sm mt-1" style="width: 100%" id="content" name="content" placeholder="Détail articles">{{ old('content') }}</textarea>
+                </div>
+
+                <div class="flex items-center justify-end mt-4">
+                    <x-jet-button class="ml-4">
+                        Envoyer
+                    </x-jet-button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+
+
+@endsection

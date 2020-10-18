@@ -1,0 +1,9 @@
+@extends('template')
+
+@section('titre')
+Les commentaires
+@endsection
+
+@section('contenu')
+<p>C'est le commentaire n° {{ $numero }}</p>
+@endsection

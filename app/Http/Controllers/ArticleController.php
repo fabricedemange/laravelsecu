@@ -45,10 +45,13 @@ class ArticleController extends Controller
      */
     public function store(ArticlesRequest $request) //Articlesrequest impose la passage par la class articlesrequest pour vérification des prérequis
     {
-        $article = new article;
-        $article->title = $request->title;
-        $article->content = $request->content;
-        $article->save();
+
+
+        Article::create($request->all());
+        //$article = new article;
+        //$article->title = $request->title;
+        //$article->content = $request->content;
+        //$article->save();
         //return back()->with('message', "Article bien crée !!!");
         return redirect('article_index')->with('message', "Article bien crée !!!");
     }
@@ -72,6 +75,7 @@ class ArticleController extends Controller
      */
     public function edit(article $article)
     {
+     
         return view('articles.edit', compact('article'));
     }
 

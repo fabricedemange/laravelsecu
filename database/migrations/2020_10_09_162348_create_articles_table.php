@@ -13,6 +13,8 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');

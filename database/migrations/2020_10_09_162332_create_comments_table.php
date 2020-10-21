@@ -13,12 +13,20 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id');
-            $table->string('title');
+            $table->string('pseudo');
             $table->text('content');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->unsignedBigInteger('article_id');
+            $table->foreign('article_id')
+            ->references('id')
+            ->on('articles')
+            ->onDelete('restrict')
+            ->onUpdate('restrict');
         });
     }
 

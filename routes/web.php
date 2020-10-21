@@ -30,14 +30,24 @@ Route::get('/index', function () {
 });
 
 use App\Http\Controllers\ArticleController;
-Route::get('article_create', [articleController::class, 'create'])->name('article.create')->middleware('auth');
+use App\Http\Controllers\commentController;
+
+Route::resource('articles', ArticleController::class);
+Route::resource('comments', CommentController::class);
+
+//Route::get('article_create', [articleController::class, 'create'])->name('article.create')->middleware('auth');
 Route::get('article_index', [articleController::class, 'index'])->name('article.index') -> middleware('auth');
 Route::get('article_index_light', [articleController::class, 'index_light'])->name('article.index_light');
-Route::get('article_show', [articleController::class, 'show'])->name('article.show');
-Route::post('article_update', [articleController::class, 'update'])->name('article.update');
+//Route::get('article_show', [articleController::class, 'show'])->name('article.show');
+//Route::post('article_update', [articleController::class, 'update'])->name('article.update');
+
+
+Route::get('comment_create', [commentController::class, 'create'])->name('comment.create')->middleware('auth');
+//Route::post('comment_create', [commentController::class, 'create'])->name('comment.create')->middleware('auth');
+
+//Route::get('comment_index', [commentController::class, 'index'])->name('comment.index')->middleware('auth');
 
 
 //Route::resource('articles', ArticleController::class)->middleware('auth');
-Route::resource('articles', ArticleController::class);
 
 //Route::get('articles_index', [Articlecontroller::class, 'index']);

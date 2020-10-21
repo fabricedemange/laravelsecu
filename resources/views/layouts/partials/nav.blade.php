@@ -9,8 +9,9 @@
                     @if (Route::has('login'))
 
                     @auth
-                    <li class="nav-item"><a class="nav-link" href="/article_index">Articles</a></li>
-                    
+                    <li class="nav-item"><a class="nav-link" href="{{ route('articles.index') }}">Articles</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="{{ route('comments.index') }}">commentaires</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/user/profile') }}">{{ Auth::user()->name }}</a></li>
 
                     <!-- Authentication -->
@@ -22,7 +23,7 @@
                             </a></li>
                     </form>
 
-                    @else 
+                    @else
                     <li class="nav-item"><a class="nav-link" href="/article_index_light">Articles</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
 

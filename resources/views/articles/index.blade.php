@@ -5,7 +5,7 @@
 <section class="clean-block clean-info dark">
     <div class="card">
         <header class="card-header">
-            <form action="{{ route('articles.create') }}">
+            <form action="{{ route('articles/create') }}">
                 @csrf
                 <button class="button is-danger" type="submit">Créer un nouvel article</button>
             </form>
@@ -20,7 +20,7 @@
                             <th>Titre</th>
                             <th></th>
                             <th></th>
-                            <th></th>
+                          
                         </tr>
                     </thead>
                     <tbody>
@@ -28,26 +28,22 @@
                         <tr>
                             <td>{{ $article->id }}</td>
 
-                            <td><strong><a href="articles/{{ $article->id }}"> {{ $article->title }}</a></strong></td>
+                            <td><strong><a href="{{ route('articles/show', $article->id) }}"> {{ $article->title }}</a></strong></td>
                             <td>
-                                <form action="{{ route('articles.edit', $article->id) }}">
-                                    @csrf
-                                    <button class="button is-danger" type="submit">Editer</button>
-                                </form>
+
+
+                                <a class="button is-danger" href="{{ route('articles/edit', $article) }}">Edit</a>
+
                             </td>
                             <td>
-                                <form action="{{ route('articles.destroy', $article->id) }}" method="post">
+
+                                <form action="{{ route('articles/destroy', $article->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="button is-danger" type="submit">Supprimer</button>
                                 </form>
                             </td>
-                            <td>
-                                <form action="{{ route('comment.create', $article->id) }}">
-                                    @csrf
-                                    <button class="button is-danger" type="submit">Commentaire</button>
-                                </form>
-                            </td>
+                   
                         </tr>
                         @endforeach
                     </tbody>

@@ -14,7 +14,7 @@
                             <th>Titre</th>
                             <th></th>
                             <th></th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -22,15 +22,14 @@
                         <tr>
                             <td>{{ $comment->id }}</td>
 
-                            <td><strong><a href="comments/{{ $comment->id }}"> {{ $comment->content }}</a></strong></td>
+                            <td><strong><a href="{{ route('comments/show', $comment->id) }}"> {{ $comment->content }}</a></strong></td>
                             <td>
-                                <form action="{{ route('comments.edit', $comment->id) }}">
-                                    @csrf
-                                    <button class="button is-danger" type="submit">Editer</button>
-                                </form>
+                                <a class="button is-danger" href="{{ route('comments/edit', $comment) }}">Edit</a>
+
+                            
                             </td>
                             <td>
-                                <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
+                                <form action="{{ route('comments/destroy', $comment->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="button is-danger" type="submit">Supprimer</button>

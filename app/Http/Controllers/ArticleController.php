@@ -13,19 +13,19 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
+
     public function index()
     {
 
         $articles = Article::all();
-        return view('articles.index', compact('articles'));
+        return view('articles/index', compact('articles'));
     }
 
     public function index_light()
     {
 
         $articles = Article::all();
-        return view('articles.index_light', compact('articles'));
+        return view('articles/index_light', compact('articles'));
     }
     /**
      * Show the form for creating a new resource.
@@ -34,7 +34,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create')->with('message', "Création d'un article");
+        return view('articles/create')->with('message', "Création d'un article");
     }
 
     /**
@@ -53,7 +53,7 @@ class ArticleController extends Controller
         //$article->content = $request->content;
         //$article->save();
         //return back()->with('message', "Article bien crée !!!");
-        return redirect('article_index')->with('message', "Article bien crée !!!");
+        return redirect('articles/index')->with('message', "Article bien crée !!!");
     }
 
     /**
@@ -64,7 +64,10 @@ class ArticleController extends Controller
      */
     public function show(article $article)
     {
-        return view('articles.show', compact('article'));
+        //echo($article);
+        $comments = \App\Models\Article::find($article->id)->comments;
+        return view('articles.show', compact('article', 'comments'));
+        //return view('articles/show', compact('article'));
     }
 
     /**
@@ -75,8 +78,8 @@ class ArticleController extends Controller
      */
     public function edit(article $article)
     {
-     
-        return view('articles.edit', compact('article'));
+        
+        return view('articles/edit', compact('article'));
     }
 
     /**
@@ -88,13 +91,11 @@ class ArticleController extends Controller
      */
     public function update(articlesRequest $request, article $article)
     {
-    
-        $article->title = $request->title;
-        $article->content = $request->content;
-        $article->save();
-        return back()->with('info', "L'article a bien été modifié !");
+        $article = \App\Models\article::find($request->id);
+        $article->update($request->all());
+        return redirect('articles/index')->with('message', "Article bien mis à jour!!!");
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -104,9 +105,8 @@ class ArticleController extends Controller
      */
     public function destroy(article $article)
     {
+        
         $article->delete();
-        //return redirect('articles.index')->with('message', 'Profile updated!');
-        //return redirect()->route('/index')->with('message', "l'article bien été supprimé dans la base de données.");;
         return back()->with('message', "l'article a bien été supprimé dans la base de données.");
     }
 }

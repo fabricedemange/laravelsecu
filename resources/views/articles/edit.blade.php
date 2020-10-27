@@ -7,7 +7,7 @@
 
 <section class="clean-block clean-info dark">
     <div class="container d-lg-flex justify-content-lg-center align-items-lg-end flex-wrap" style="width: 670;">
-        <form class="text-left" style="text-align: left;" action="{{ route('articles.update', $article->id) }}" method="post">
+        <form class="text-left" style="text-align: left;" action="{{ route('articles/update', $article->id) }}" method="POST">
             @csrf
             @method('put')
             <h2 class="text-info" style="text-align: left;width: 650px;">Titre

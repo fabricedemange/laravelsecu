@@ -11,7 +11,7 @@
 
 <section class="clean-block clean-info dark">
     <div class="container d-lg-flex justify-content-lg-center align-items-lg-end flex-wrap" style="width: 670;">
-        <form class="text-left" style="text-align: left;" action="{{ route('articles.store')}}" method="POST">
+        <form class="text-left" style="text-align: left;" action="{{ route('articles/store')}}" method="POST">
             @csrf
             <h2 class="text-info" style="text-align: left;width: 650px;">Titre
                 <input class="form-control" type="text" name="title" value="{{old('title')}}" placeholder="title" style="height: 40px;width: 650;"></h2>

@@ -1,6 +1,3 @@
-
-
-
 <div class="card text-center">
     <div class="card-body" style="margin: 20px; height:20px;margin-top:30px;">
         @if (session()->has('message'))
@@ -11,7 +8,8 @@
         <h4 class="card-title">{{ session('info') }}</h4>
         @endif
     </div>
-
+    {{Session::flash('message', '')}}
+    {{Session::flash('info', '')}}
 </div>
 
 @yield('header2')

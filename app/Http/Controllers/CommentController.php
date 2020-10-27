@@ -14,19 +14,19 @@ class commentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
+
     public function index()
     {
 
         $comments = comment::all();
-        return view('comments.index', compact('comments'));
+        return view('comments/index', compact('comments'));
     }
 
     public function index_light()
     {
 
         $comments = comment::all();
-        return view('comments.index_light', compact('comments'));
+        return view('comments/index_light', compact('comments'));
     }
     /**
      * Show the form for creating a new resource.
@@ -35,8 +35,8 @@ class commentController extends Controller
      */
     public function create(article $article)
     {
-      
-        return view('comments.create', compact('article'))->with('message', "Création d'un commentaire");    
+
+        return view('comments/create', compact('article'))->with('message', "Création d'un commentaire");
     }
 
     /**
@@ -45,15 +45,17 @@ class commentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(commentsRequest $request,article $article) //commentsrequest impose la passage par la class commentsrequest pour vérification des prérequis
+    public function store(commentsRequest $request, article $article) //commentsrequest impose la passage par la class commentsrequest pour vérification des prérequis
     {
         $comment = new comment;
         $comment->pseudo = $request->pseudo;
         $comment->content = $request->content;
         $comment->article_id = $request->article_id;
+        $comment->valider=false;
         $comment->save();
         //return back()->with('message', "comment bien crée !!!");
-        return redirect('comments')->with('message', "commentaire bien crée !!!");
+        return redirect('comments/index')->with('message', "commentaire bien créé !!!");
+ 
     }
 
     /**
@@ -64,7 +66,7 @@ class commentController extends Controller
      */
     public function show(comment $comment)
     {
-        return view('comments.show', compact('comment'));
+        return view('comments/show', compact('comment'));
     }
 
     /**
@@ -75,7 +77,7 @@ class commentController extends Controller
      */
     public function edit(comment $comment)
     {
-        return view('comments.edit', compact('comment'));
+        return view('comments/edit', compact('comment'));
     }
 
     /**
@@ -87,15 +89,22 @@ class commentController extends Controller
      */
     public function update(commentsRequest $request, comment $comment)
     {
-    
-      
-        $comment->content = $request->content;
-        $comment->save();
-        
 
-        return redirect('comments')->with('info', "Le commentaire a bien été modifié !");
+        $comment = \App\Models\comment::find($request->id);
+        $comment->update($request->all());
+        
+        return redirect('comments/index')->with('info', "Le commentaire a bien été modifié !");
     }
-    
+    public function valider(commentsRequest $request, comment $comment)
+    {
+
+        $comment = \App\Models\comment::find($request->id);
+        $request->valider=true;
+        $comment->update($request->all());
+
+        return redirect('comments/index')->with('info', "Le commentaire a bien été modifié !");
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -106,8 +115,6 @@ class commentController extends Controller
     public function destroy(comment $comment)
     {
         $comment->delete();
-        //return redirect('comments.index')->with('message', 'Profile updated!');
-        //return redirect()->route('/index')->with('message', "l'comment bien été supprimé dans la base de données.");;
-        return back()->with('message', "l'comment a bien été supprimé dans la base de données.");
+        return back()->with('message', "le commentaire a bien été supprimé dans la base de données.");
     }
 }

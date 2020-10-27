@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class comment extends Model
 {
     use HasFactory;
-    protected $fillable = ['content'];
+    protected $fillable = ['pseudo','content','article_id','valider'];
+    
     public function article()
     {
+       
         return $this->belongsTo(article::class);
     }
 }

@@ -21,7 +21,7 @@
                         @foreach($articles as $article)
                         <tr>
                             <td>{{ $article->id }}</td>
-                            <td><strong><a href="{{ route('articles.show', $article->id) }}"> {{ $article->title }}</a></strong></td>
+                            <td><strong><a href="{{ route('articles/show', $article->id) }}"> {{ $article->title }}</a></strong></td>
                             <td><strong>{{ substr($article->content , 0, 100)}}</strong></td>
                         </tr>
                         @endforeach

@@ -12,6 +12,7 @@
                         <tr>
                             <th>#</th>
                             <th>Titre</th>
+                            <th>validé</th>
                             <th></th>
                             <th></th>
 
@@ -22,11 +23,13 @@
                         <tr>
                             <td>{{ $comment->id }}</td>
 
+
                             <td><strong><a href="{{ route('comments/show', $comment->id) }}"> {{ $comment->content }}</a></strong></td>
+                            <td>{{ $comment->valider }}</td>
                             <td>
                                 <a class="button is-danger" href="{{ route('comments/edit', $comment) }}">Edit</a>
 
-                            
+
                             </td>
                             <td>
                                 <form action="{{ route('comments/destroy', $comment->id) }}" method="post">

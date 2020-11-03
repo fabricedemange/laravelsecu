@@ -51,7 +51,7 @@ class commentController extends Controller
         $comment->pseudo = $request->pseudo;
         $comment->content = $request->content;
         $comment->article_id = $request->article_id;
-        $comment->valider=false;
+        $comment->valider=0;
         $comment->save();
         //return back()->with('message', "comment bien crée !!!");
         return redirect('comments/index')->with('message', "commentaire bien créé !!!");
@@ -77,6 +77,7 @@ class commentController extends Controller
      */
     public function edit(comment $comment)
     {
+ 
         return view('comments/edit', compact('comment'));
     }
 
@@ -89,21 +90,11 @@ class commentController extends Controller
      */
     public function update(commentsRequest $request, comment $comment)
     {
-
         $comment = \App\Models\comment::find($request->id);
         $comment->update($request->all());
-        
         return redirect('comments/index')->with('info', "Le commentaire a bien été modifié !");
     }
-    public function valider(commentsRequest $request, comment $comment)
-    {
 
-        $comment = \App\Models\comment::find($request->id);
-        $request->valider=true;
-        $comment->update($request->all());
-
-        return redirect('comments/index')->with('info', "Le commentaire a bien été modifié !");
-    }
 
 
     /**

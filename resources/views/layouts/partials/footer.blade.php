@@ -1,4 +1,5 @@
-<div class="footer-basic" style="padding: 150px";>
+
+<div class="footer-dark" style="padding: 150px";>
     <footer>
         <div class="container">
             <div class="row">

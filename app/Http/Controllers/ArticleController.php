@@ -65,7 +65,8 @@ class ArticleController extends Controller
     public function show(article $article)
     {
         //echo($article);
-        $comments = \App\Models\Article::find($article->id)->comments;
+        //$comments = \App\Models\Article::find($article->id)->comments;
+        $comments = $article->comments->where('valider', true);
         return view('articles.show', compact('article', 'comments'));
         //return view('articles/show', compact('article'));
     }
